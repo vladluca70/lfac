@@ -1,0 +1,4 @@
+begin_progr
+    a:=3
+    b:=5
+end_progr

@@ -42,6 +42,7 @@ class a2
         int c22;
     }
     
+    dtor x233(){};
 
     int metoda1()
     {
@@ -112,5 +113,8 @@ begin_progr
                 }
             }
         }
+        int a932:=4-4%2+2*4;
+        int a934:=(4+5*4/4+4%4);
+        int a935:=(4+5+(5+4)+4+4*4%4)-(4+5);
 
 end_progr

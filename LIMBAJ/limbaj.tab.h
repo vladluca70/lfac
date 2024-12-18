@@ -82,7 +82,15 @@ extern int yydebug;
     RETURN = 283,                  /* RETURN  */
     CLASS_ACCESS_MODIFIERS = 284,  /* CLASS_ACCESS_MODIFIERS  */
     CONSTRUCTOR = 285,             /* CONSTRUCTOR  */
-    CLASS_CALL = 286               /* CLASS_CALL  */
+    CLASS_CALL = 286,              /* CLASS_CALL  */
+    PRINT = 287,                   /* PRINT  */
+    TYPEOF = 288,                  /* TYPEOF  */
+    PLUS = 289,                    /* PLUS  */
+    MINUS = 290,                   /* MINUS  */
+    DIV = 291,                     /* DIV  */
+    MULTIPLICATION = 292,          /* MULTIPLICATION  */
+    MODULO = 293,                  /* MODULO  */
+    DESTRUCTOR = 294               /* DESTRUCTOR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -91,11 +99,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "limbaj.y"
+#line 14 "limbaj.y"
 
      char* string;
 
-#line 99 "limbaj.tab.h"
+#line 107 "limbaj.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

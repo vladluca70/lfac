@@ -29,10 +29,20 @@
 "++" {yylval.string = strdup(yytext);return INCREMENT;}
 "--" {yylval.string = strdup(yytext);return DECREMENT;}
 "->" {yylval.string = strdup(yytext);return CLASS_CALL;}
+"+" {yylval.string = strdup(yytext);return PLUS;}
+"-" {yylval.string = strdup(yytext);return MINUS;}
+"/" {yylval.string = strdup(yytext);return DIV;}
+"*" {yylval.string = strdup(yytext);return MULTIPLICATION;}
+"%" {yylval.string = strdup(yytext);return MODULO;}
+
+
+"Print" {yylval.string = strdup(yytext);return PRINT;}
+"TypeOf" {yylval.string = strdup(yytext);return TYPEOF;}
 
 "class" {yylval.string = strdup(yytext);return CLASS;}
 "empty_class" {yylval.string = strdup(yytext);return EMPTY_CLASS;}
 "ctor" {yylval.string = strdup(yytext);return CONSTRUCTOR;}
+"dtor" {yylval.string = strdup(yytext);return DESTRUCTOR;}
 "begin_progr" {return BGIN;}
 "end_progr" {return END;}
 [a-zA-Z][a-zA-Z0-9]* {yylval.string = strdup(yytext); return ID;}

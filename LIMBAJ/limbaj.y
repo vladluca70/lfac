@@ -10,12 +10,15 @@ void yyerror(const char * s);
 class SymTable* current;
 int errorCount = 0;
 %}
-%union {
+%union 
+{
      char* string;
 }
 %token  BGIN END ASSIGN NR 
 %token<string> ID TYPE CLASS EMPTY_CLASS IF ELSE WHILE FOR 
-%token<string> EQUAL LESS LESS_EQUAL GREATER GREATER_EQUAL NOT_EQUAL AND OR INCREMENT DECREMENT VOID _TRUE _FALSE RETURN CLASS_ACCESS_MODIFIERS CONSTRUCTOR CLASS_CALL
+%token<string> EQUAL LESS LESS_EQUAL GREATER GREATER_EQUAL NOT_EQUAL AND OR 
+%token<string> INCREMENT DECREMENT VOID _TRUE _FALSE RETURN CLASS_ACCESS_MODIFIERS CONSTRUCTOR CLASS_CALL PRINT TYPEOF
+%token<string> PLUS MINUS DIV MULTIPLICATION MODULO DESTRUCTOR
 %start progr
 %%
 progr :  declarations main {if (errorCount == 0) cout<< "The program is correct!" << endl;}
@@ -39,6 +42,8 @@ declarations : decl
            |declarations classes
            |constructor
            |declarations constructor
+           |destructor
+           |declarations destructor
 	      ;
 
 
@@ -51,6 +56,7 @@ decl       :  TYPE ID ';' {
                               }
                           }
               | TYPE ID  '(' list_param ')' ';'
+
            ;
 
 list_param : param
@@ -201,6 +207,9 @@ constructor: CONSTRUCTOR ID '(' ')' '{' '}'
                |CONSTRUCTOR ID '(' ')' '{' declarations '}'
                ;
 
+destructor: DESTRUCTOR ID '(' ')' '{' '}' ';'
+               ;
+
 ///////////////////////////////////////////////////////////
 
 
@@ -224,6 +233,12 @@ list :  statement ';'
      |list function_call
      |instance_of_class
      |list instance_of_class
+     |print
+     |list print
+     |typeof
+     |list typeof
+     |assign_with_arithmetic_expressions
+     |list assign_with_arithmetic_expressions
      ;
 
 statement: ID ASSIGN ID
@@ -239,6 +254,25 @@ function_call: ID '(' function_antet ')' ';' ;
           
 
 instance_of_class: ID CLASS_CALL CLASS ID ';' ;
+
+typeof: TYPEOF '(' expr ')' ';' ;
+
+print: PRINT '(' expr ')' ';' ;
+
+expr: ID| NR| TYPE| conditions;
+
+arithmetic_operators: MODULO|PLUS|MINUS|DIV|MULTIPLICATION;
+
+assign_with_arithmetic_expressions: TYPE ID ASSIGN NR arithmetic_operators NR  arithmetic_expr_rec ';'
+                    | TYPE ID ASSIGN '(' NR arithmetic_operators NR  arithmetic_expr_rec ')' ';'
+                    | TYPE ID ASSIGN '(' NR arithmetic_operators NR  arithmetic_expr_rec ')' arithmetic_expr_rec ';'
+                    ;
+
+arithmetic_expr_rec: arithmetic_operators NR 
+                    |arithmetic_expr_rec arithmetic_operators NR 
+                    |arithmetic_operators '(' NR arithmetic_operators NR arithmetic_expr_rec ')'
+                    |arithmetic_operators '(' NR arithmetic_operators NR  ')'
+                    ;
 
 
 %%
